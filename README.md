@@ -4,4 +4,4 @@ downstream-dash
 Public dashboard for DriveShare downstream verification node.
 
 ## Status
-Current dashboard is a quick-and-dirty prototype. A more formal dashboard is forthcoming.
+A quick and dirty prototype is available under the gh-pages branch. You can view it at [storj.github.io/downstream-dash](http://storj.github.io/downstream-dash).

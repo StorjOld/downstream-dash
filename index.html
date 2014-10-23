@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Farmer Verification Node (Basic)</title>
+    <style>
+    .online {
+        color: green;
+    }
+    .offline {
+        color: rgb(200, 0, 0);
+    }
+    </style>
+</head>
+
+<body id="home">
+    <h1>DriveShare Farmers (Sorted by Uptime)</h1>
+    <h4>Online farmers are
+        <span class="online">green</span>and offline farmers are
+        <span class="offline">red</span>.</h4>
+    <ol></ol>
+    <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script>
+    var apiBase = 'http://verify.driveshare.org/api/downstream/';
+    var statusByUptimeURI = 'status/list/by/d/uptime',
+        farmerStatusURI = 'status/show/';
+    var updateFarmers = function() {
+        $.get(apiBase + statusByUptimeURI, function(data) {
+            $('ol').fadeOut('fast', function() {
+                $('ol').empty();
+                $.each(data.farmers, function(index, farmerId) {
+                    $.get(apiBase + farmerStatusURI + farmerId, function(farmerData) {
+                        $('ol').append($('li')).attr('class', farmerData.online ? 'online' : 'offline').append('<p><strong>Address</strong>:' + farmerData.address + '<br><strong>Uptime</strong>: ' + farmerData.uptime + '<br>This ' + farmerData.location.country + '-based farmer has ' + farmerData.contracts + ' contracts and passed ' + farmerData.heartbeats + ' heartbeats with ' + farmerData.size + '-byte test files.</p>');
+                    });
+                });
+                $('ol').fadeIn('fast');
+            });
+        });
+    };
+    $(function() {
+        updateFarmers();
+        setInterval(updateFarmers, 3000);
+
+    });
+    </script>
+</body>
+
+</html>

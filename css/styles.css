@@ -37,10 +37,6 @@ html, body{
 
 #side-menu{
 	background: #107fc9;
-	background-image: url('/img/driveshare_bg.jpg');
-	background-size: cover;
-	background-position: center top;
-	background-attachment: fixed;
 	position: fixed;
 	z-index: 2;
 	left: -315px;

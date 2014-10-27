@@ -56,7 +56,8 @@ html, body{
 }
 
 #side-menu img {
-	padding: 33px 0 0 111px;
+	display: block;
+	margin: 20px auto 10px;
 }
 
 /* Entries */

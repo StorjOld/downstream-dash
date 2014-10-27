@@ -117,10 +117,9 @@ body.open #side-menu ul .entry .color-effect{
 	left:-2px;
 }
 
-/* No members message */
+/* No farmers message */
 
-
-#no-members{
+#no-farmers{
 	display: none;
 	color:  #fefefe;
 	position: absolute;

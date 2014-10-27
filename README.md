@@ -22,4 +22,4 @@ This dashboard relays information from a test node running [downstream-node](htt
 
 
 ## Credits
-The interface was based on work by [Danny Markov](http://tutorialzine.com/2014/09/real-time-visitor-globe-nodejs-webgl/). Tiles Courtesy of [MapQuest](http://www.mapquest.com/)![MapQuest](http://developer.mapquest.com/content/osm/mq_logo.png "MapQuest"). Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency. 
+The interface was based on work by [Danny Markov](http://tutorialzine.com/2014/09/real-time-visitor-globe-nodejs-webgl/). Tiles Courtesy of [MapQuest](http://www.mapquest.com/)![MapQuest](http://developer.mapquest.com/content/osm/mq_logo.png "MapQuest"). Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency.

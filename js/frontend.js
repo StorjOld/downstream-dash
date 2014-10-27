@@ -42,7 +42,9 @@ $(function() {
         $.ajax({
             url: 'http://verify.driveshare.org/api/downstream/status/list/by/d/uptime',
             success: function(data) {
-                farmers = data.farmers;
+                farmers = data.farmers.filter(function(farmer) {
+                	return farmer.uptime > 0;
+                });
                 generateLegend(farmers);
                 render();
             }
@@ -93,7 +95,7 @@ $(function() {
                 entry = $('#farmer' + (i + 1));
                 entry.append($('<span class="color-effect"></span>').css('background-color', countryLegend[farmers[i].location.country]));
                 entry.append($('<div class="farmerId">' + farmers[i].address + '</div>'));
-                entry.append($('<span class="count">' + farmers[i].uptime + '%</span>'));
+                entry.append($('<span class="count">' + Math.round(farmers[i].uptime) + '%</span>'));
 
             }
 
@@ -136,7 +138,7 @@ $(function() {
         });
 
 
-        // Rotate the globe to the desired country from the list
+        // Rotate the globe to the desired farmer from the list
         $('.entry').on('click', function() {
             if ($(window).width() < 800) {
                 body.removeClass('open');

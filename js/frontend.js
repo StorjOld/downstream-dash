@@ -1,9 +1,8 @@
 $(function() {
 
-    var countriesList = [],
-        locations = [],
+    var farmers = [],
         markers = [],
-        legend = {},
+        countryLegend = {},
         rotation;
 
     var currentInfo = $('#side-menu ul'),
@@ -31,37 +30,51 @@ $(function() {
 
 
     // Opening and closing the side menu
-
     $('#open-side-menu').on('click', function() {
         body.toggleClass('open');
     });
 
 
-    // Get data for the globe from /online
-    // Once initially, and then every 30 sec
-    getData();
-    setInterval(getData, 5000);
-
-
     // This function sends an ajax get request to /online,
-    // fetches a list of countries and coordinates
+    // fetches a list of farmers and coordinates
     // then renders the globe
-    function getData() {
+    var getData = function() {
         $.ajax({
-            url: '/online',
+            url: 'http://verify.driveshare.org/api/downstream/status/list/by/d/uptime',
             success: function(data) {
-                countriesList = data.countriesList;
-                locations = data.coordinates;
+                farmers = data.farmers;
+                generateLegend(farmers);
                 render();
             }
         });
     }
 
+    // Fetch data for the globe once initially, 
+    // and then every 5 seconds.
+    getData();
+    setInterval(getData, 5000);
+
+    // This function returns a random hex color.
+    var randomColor = function() {
+        return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
+    }
+
+    // Maps all the countries of farmers to a randomly defined color.
+    var generateLegend = function(farmers) {
+        var country, j;
+        for (j = 0; j < farmers.length; j++) {
+            country = farmers[j].location.country;
+            if (!countryLegend.hasOwnProperty(country)) {
+                countryLegend[country] = randomColor();
+            }
+        }
+    }
+
     // This function handles everything related to updating the HTML
     // with the returned data from the AJAX call:
-    function render() {
+    var render = function() {
         var entry;
-        if (!countriesList.length) {
+        if (!farmers.length) {
 
             // If there isn't anybody online
             // Show an appropriate message and empty the summary and the list section
@@ -74,25 +87,18 @@ $(function() {
             // On every call clear the side-menu list and globe markers and fill them up with new info.
             currentInfo.empty();
             $('#no-members').hide();
-            for (var i = 0; i < countriesList.length; i++) {
-
-                // Assign the country's name a color.
-                generateColorPalette(countriesList[i]['countryName']);
-
-                // Populate the side-menu with the countries ordered by members online (12 entries tops).
-                if (i < 12) {
-
-                    currentInfo.append($('<li id="country' + (i + 1) + '" class="entry"></li>'));
-                    entry = $('#country' + (i + 1));
-                    entry.append($('<span class="color-effect"></span>').css('background-color', legend[countriesList[i]['countryName']]));
-                    entry.append($('<div class="countryName">' + countriesList[i]['countryName'] + '</div>'));
-                    entry.append($('<span class="count">' + countriesList[i]['usersOnline'] + '</span>'));
-                }
+            for (var i = 0; i < 10; i++) {
+                // Populate the side-menu with the farmers, ranked by uptime.
+                currentInfo.append($('<li id="farmer' + (i + 1) + '" class="entry ' + (!farmers[i].online ? "offline": "") + '"></li>'));
+                entry = $('#farmer' + (i + 1));
+                entry.append($('<span class="color-effect"></span>').css('background-color', countryLegend[farmers[i].location.country]));
+                entry.append($('<div class="farmerId">' + farmers[i].address + '</div>'));
+                entry.append($('<span class="count">' + farmers[i].uptime + '%</span>'));
 
             }
 
             // Summary information
-            $('.summary').html(locations.length + ' online <span>/</span> ' + countriesList.length + ' countries');
+            $('.summary').html(farmers.length + ' farmers <span>/</span> ' + Object.keys(countryLegend).length + ' countries');
         }
 
 
@@ -111,17 +117,22 @@ $(function() {
 
 
         // For each ip location create a new marker
-        locations.forEach(function(a) {
-
-            // Push the new markers to the markers[] array and add them to the globe, adding a popup too.
-            markers.push(WE.marker([a.latitude, a.longitude]).addTo(earth).bindPopup("This user has logged in from <b>" + a.country + '</b>', {
+        farmers.forEach(function(a) {
+        	var country = a.location.country;
+        	var city = a.location.city;
+        	var state = a.location.state;
+        	var numContracts = a.contracts;
+        	var heartbeats = a.heartbeats;
+        	var testFileSize = a.size;
+            
+            markers.push(WE.marker([a.location.lat, a.location.lon]).addTo(earth).bindPopup('This farmer from <strong>' + (city ? city : country) + '</strong>' + (state ? ', <strong>' + state + '</strong>' : '') + ' has <strong>' + numContracts + '</strong> contract(s) and passed <strong>' + heartbeats + '</strong> heartbeats with ' + testFileSize + '-byte test files.', {
                 maxWidth: 150,
                 maxHeight: 100,
                 closeButton: true
             }));
 
             // Color the markers depending on the country they are in.
-            $(markers[markers.length - 1].element.firstChild).css('background', legend[a.country]);
+            $(markers[markers.length - 1].element.firstChild).css('background', countryLegend[a.location.country]);
         });
 
 
@@ -131,8 +142,8 @@ $(function() {
                 body.removeClass('open');
             }
             clearInterval(rotation);
-            var index = $(this).attr('id').split('country')[1] - 1;
-            earth.panTo([countriesList[index]['latitude'], countriesList[index]['longitude']]);
+            var index = $(this).attr('id').split('farmer')[1] - 1;
+            earth.panTo([farmers[index].location.lat, farmers[index].location.lon]);
         });
 
     }
@@ -150,7 +161,7 @@ $(function() {
 
 
     // Shows only a part of the entries depending on the screen size
-    function showEntries() {
+    var showEntries = function() {
         var screenHeight = $(window).height(),
             sideMenuEntriesSpace = screenHeight - 250, // Exclude the title and the summary height
             numberOfEntries = Math.round(sideMenuEntriesSpace / 55); // 55 is the height of an entry in pixels
@@ -163,29 +174,6 @@ $(function() {
 
         // Show only as many countries as would fit on the window
         countries.slice(0, numberOfEntries).show();
-    }
-
-
-    var j = 0;
-
-    var arrayOfColors = [
-        '#25c19e', '#c354f6', '#7a54f6', '#2593c1', '#f68954', '#5cc151',
-        '#db3095', '#c52a82', '#d7c834', '#e24912', '#e3c44a', '#d630ae'
-    ];
-
-
-    function generateColorPalette(name) {
-        // Fill up a legend object with the key a country name
-        // and the value a color taken from colors[]
-        if (!legend[name]) {
-            legend[name] = arrayOfColors[j];
-        }
-
-        j++;
-
-        if (j >= arrayOfColors.length) {
-            j = 0;
-        }
     }
 
 

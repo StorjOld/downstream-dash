@@ -100,7 +100,7 @@ $(function() {
             }
 
             // Summary information
-            $('.summary').html(farmers.length + ' farmers <span>/</span> ' + Object.keys(countryLegend).length + ' countries');
+            $('.summary').html(farmers.length + ' farmers <span>in</span> ' + Object.keys(countryLegend).length + ' countries');
         }
 
 

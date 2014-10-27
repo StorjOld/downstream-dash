@@ -36,7 +36,8 @@ html, body{
 --------------------------*/
 
 #side-menu{
-	background: #107fc9;
+	background: #000;
+	background: rgba(0, 0, 0, 0.35);
 	position: fixed;
 	z-index: 2;
 	left: -315px;
@@ -48,11 +49,14 @@ html, body{
 }
 
 #side-menu h2{
-	color:  #fefefe;
-	font-size: 24px;
+	color: #fefefe;
+	font-size: 14px;
 	line-height: 1;
 	text-align: center;
-	padding-bottom: 20px;
+	text-transform: uppercase;
+	letter-spacing: 5px;
+	padding-bottom: 25px;
+	padding-left: 7px;
 }
 
 #side-menu img {
@@ -64,11 +68,13 @@ html, body{
 
 
 .entry{
+	font-family: "Questrial", sans-serif;
+	font-weight: 400;
+	letter-spacing: 1px;
 	list-style: none;
-	background-color: rgba(0, 0, 0, 0.4);
 	height: 55px;
-	color:  #ffffff;
-	font-size: 13px;
+	color:  #ddd;
+	font-size: 12px;
 	line-height: 55px;
 	margin-top: 5px;
 	z-index: 3;
@@ -102,9 +108,9 @@ html, body{
 	content: '';
 	background-color:  #25c19e;
 	position: absolute;
-	left:-323px;
+	left:-320px;
 	transition:left 0.4s;
-	width: 326px;
+	width: 323px;
 	height: 55px;
 	z-index: 4;
 	display: none;
@@ -115,7 +121,7 @@ body.open #side-menu ul .entry .color-effect{
 }
 
 .entry:hover .color-effect{
-	left:-2px;
+	left:-3px;
 }
 
 /* No farmers message */
@@ -134,15 +140,18 @@ body.open #side-menu ul .entry .color-effect{
 
 .summary{
 	color: #ffffff;
-	font-size: 14px;
+	font-size: 10px;
 	text-align: center;
 	bottom: 0;
 	width: 100%;
 	padding-bottom: 15px;
+	font-family: "Questrial", sans-serif;
+	text-transform: uppercase;
+	letter-spacing: 1px;
 }
 
 .summary span{
-	color: #d0d0d0;
+	color: #ddd;
 }
 
 /*---------------------------
@@ -172,7 +181,7 @@ body.open #side-menu ul .entry .color-effect{
 
 body.open #open-side-menu {
 	border-radius: 50%;
-	background-color: rgb(8, 122, 192);
+	background: rgba(0, 0, 0, 0.35);
 }
 
 #animate-cross {
@@ -268,6 +277,11 @@ body.open #side-menu{
 	background: #2f2f2f;
 	position: absolute;
 	border-radius: 50%;
+}
+
+.cesium-credit-text,
+.cesium-credit-text:before {
+	color: #303030;
 }
 
 

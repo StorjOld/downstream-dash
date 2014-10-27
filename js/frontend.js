@@ -37,7 +37,7 @@ $(function() {
 
     // This function sends an ajax get request to /online,
     // fetches a list of farmers and coordinates
-    // then renders the globe
+    // then renders the globe.
     var getData = function() {
         $.ajax({
             url: 'http://verify.driveshare.org/api/downstream/status/list/by/d/uptime',

@@ -3,6 +3,7 @@ $(function() {
     var farmers = [],
         markers = [],
         countries = {},
+        colorLegend = {},
         rotation;
 
     var currentInfo = $('#side-menu ul'),
@@ -65,7 +66,7 @@ $(function() {
     // an object of countries.
     var generateLegend = function(farmers) {
         for (var j = 0; j < farmers.length; j++) {
-            farmers[j]['color'] = randomColor();
+            colorLegend[farmer[j].id] = randomColor();
             countries[farmers[j].location.country] = true;
         }
     }
@@ -91,7 +92,7 @@ $(function() {
                 // Populate the side-menu with the farmers, ranked by uptime.
                 currentInfo.append($('<li id="farmer' + (i + 1) + '" class="entry ' + (!farmers[i].online ? "offline": "") + '"></li>'));
                 entry = $('#farmer' + (i + 1));
-                entry.append($('<span class="color-effect"></span>').css('background-color', farmers[i].color));
+                entry.append($('<span class="color-effect"></span>').css('background-color', colorLegend[farmers[i].id]));
                 entry.append($('<div class="farmerId">' + farmers[i].address + '</div>'));
                 entry.append($('<span class="count">' + Math.round(farmers[i].uptime) + '%</span>'));
 
@@ -132,7 +133,7 @@ $(function() {
             }));
 
             // Color the markers.
-            $(markers[markers.length - 1].element.firstChild).css('background', a.color);
+            $(markers[markers.length - 1].element.firstChild).css('background', colorLegend[a.id]);
         });
 
 

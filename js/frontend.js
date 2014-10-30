@@ -169,8 +169,12 @@ $(function() {
         });
 
         // Invert text color on mouseenter, mouseleave of entry.
-        $('.entry').on('mouseenter mouseleave', function() {
+        $('.entry').on('mouseenter', function() {
             $(this).css('color', invertColor($(this).children('span.color-effect').css('background-color')));
+        });
+
+        $('.entry').on('mouseleave', function() {
+            $(this).css('color', '#fff');
         });
     }
 

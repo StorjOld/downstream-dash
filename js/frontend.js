@@ -127,8 +127,9 @@ $(function() {
             var numContracts = a.contracts;
             var heartbeats = a.heartbeats;
             var testFileSize = a.size;
+            var firstBits = a.address.slice(0, 4);
             
-            markers.push(WE.marker([a.location.lat, a.location.lon]).addTo(earth).bindPopup('This farmer from <strong>' + (city ? city : country) + '</strong>' + (state ? ', <strong>' + state + '</strong>' : '') + ' has <strong>' + numContracts + '</strong> contract(s) and passed <strong>' + heartbeats + '</strong> heartbeats with ' + testFileSize + '-byte test files.', {
+            markers.push(WE.marker([a.location.lat, a.location.lon]).addTo(earth).bindPopup('Farmer <strong>' + firstBits + '&hellip;</strong> from <strong>' + (city ? city : country) + '</strong>' + (state ? ', <strong>' + state + '</strong>' : '') + ' has <strong>' + numContracts + '</strong> contract(s) and passed <strong>' + heartbeats + '</strong> heartbeats with ' + testFileSize + '-byte test files.', {
                 maxWidth: 150,
                 maxHeight: 100,
                 closeButton: true

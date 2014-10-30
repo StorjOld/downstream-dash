@@ -293,7 +293,9 @@ body.open #side-menu{
 
 .cesium-credit-text,
 .cesium-credit-textContainer:before {
-	color: #303030;
+	opacity: 0.15;
+	text-shadow: none !important;
+	font-family: "Muli", sans-serif;
 }
 
 

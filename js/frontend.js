@@ -66,7 +66,7 @@ $(function() {
     // an object of countries.
     var generateLegend = function(farmers) {
         for (var j = 0; j < farmers.length; j++) {
-            colorLegend[farmer[j].id] = randomColor();
+            colorLegend[farmers[j].id] = randomColor();
             countries[farmers[j].location.country] = true;
         }
     }

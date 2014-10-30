@@ -2,7 +2,7 @@ $(function() {
 
     var farmers = [],
         markers = [],
-        countryLegend = {},
+        countries = {},
         rotation;
 
     var currentInfo = $('#side-menu ul'),
@@ -35,9 +35,9 @@ $(function() {
     });
 
 
-    // This function sends an ajax get request to /online,
-    // fetches a list of farmers and coordinates
-    // then renders the globe.
+    // This function sends an ajax get request to fetch
+    // a list of farmers and coordinates, then renders 
+    // the globe.
     var getData = function() {
         $.ajax({
             url: 'http://verify.driveshare.org/api/downstream/status/list/by/d/uptime',
@@ -61,14 +61,12 @@ $(function() {
         return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
     }
 
-    // Maps all the countries of farmers to a randomly defined color.
+    // Maps all farmers to a random color and generates
+    // an object of countries.
     var generateLegend = function(farmers) {
-        var country, j;
-        for (j = 0; j < farmers.length; j++) {
-            country = farmers[j].location.country;
-            if (!countryLegend.hasOwnProperty(country)) {
-                countryLegend[country] = randomColor();
-            }
+        for (var j = 0; j < farmers.length; j++) {
+            farmers[j]['color'] = randomColor();
+            countries[farmers[j].location.country] = true;
         }
     }
 
@@ -93,14 +91,14 @@ $(function() {
                 // Populate the side-menu with the farmers, ranked by uptime.
                 currentInfo.append($('<li id="farmer' + (i + 1) + '" class="entry ' + (!farmers[i].online ? "offline": "") + '"></li>'));
                 entry = $('#farmer' + (i + 1));
-                entry.append($('<span class="color-effect"></span>').css('background-color', countryLegend[farmers[i].location.country]));
+                entry.append($('<span class="color-effect"></span>').css('background-color', farmers[i].color));
                 entry.append($('<div class="farmerId">' + farmers[i].address + '</div>'));
                 entry.append($('<span class="count">' + Math.round(farmers[i].uptime) + '%</span>'));
 
             }
 
             // Summary information
-            $('.summary').html(farmers.length + ' farmers <span>/</span> ' + Object.keys(countryLegend).length + ' countries');
+            $('.summary').html(farmers.length + ' farmers <span>/</span> ' + Object.keys(countries).length + ' countries');
         }
 
 

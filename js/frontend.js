@@ -62,6 +62,25 @@ $(function() {
         return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
     }
 
+    // Returns the color inverse of a hex-encoded color.
+    var invertColor = function(color) {
+        if (color.indexOf('#') !== -1) {
+            var hexValue = hexColor.slice(1);
+            var reqHex = '';
+            for (var i = 0; i < 6; i++) {
+                reqHex = reqHex + (15 - parseInt(hexValue[i], 16)).toString(16);
+            }
+            return reqHex;
+        } else {
+            var colorsOnly = color.substring(color.indexOf('(') + 1, color.lastIndexOf(')')).split(/,\s*/);
+            var newRed = 255 - colorsOnly[0];
+            var newGreen = 255 - colorsOnly[1];
+            var newBlue = 255 - colorsOnly[2];
+            return 'rgb(' + newRed + ',' + newGreen + ',' + newBlue + ')';
+        }
+        
+    }
+
     // Maps all farmers to a random color and generates
     // an object of countries.
     var generateLegend = function(farmers) {
@@ -92,7 +111,7 @@ $(function() {
             $('#no-members').hide();
             for (var i = 0; i < Math.min(10, farmers.length); i++) {
                 // Populate the side-menu with the farmers, ranked by uptime.
-                currentInfo.append($('<li id="farmer' + (i + 1) + '" class="entry ' + (!farmers[i].online ? "offline": "") + '"></li>'));
+                currentInfo.append($('<li id="farmer' + (i + 1) + '" class="entry ' + (!farmers[i].online ? "offline" : "") + '"></li>'));
                 entry = $('#farmer' + (i + 1));
                 entry.append($('<span class="color-effect"></span>').css('background-color', colorLegend[farmers[i].id]));
                 entry.append($('<div class="farmerId">' + farmers[i].address + '</div>'));
@@ -111,7 +130,6 @@ $(function() {
 
 
         // Adding the markers to the globe.
-
         // First remove all existing markers from the globe and clear the array they are stored in.
         markers.forEach(function(b) {
             earth.removeMarker(b);
@@ -128,7 +146,7 @@ $(function() {
             var heartbeats = a.heartbeats;
             var testFileSize = a.size;
             var firstBits = a.address.slice(0, 4);
-            
+
             markers.push(WE.marker([a.location.lat, a.location.lon]).addTo(earth).bindPopup('Farmer <strong>' + firstBits + '</strong>&hellip; from <strong>' + (city ? city : country) + '</strong>' + (state ? ', <strong>' + state + '</strong>' : '') + ' has <strong>' + numContracts + '</strong> contract(s) and passed <strong>' + heartbeats + '</strong> heartbeats with ' + testFileSize + '-byte test files.', {
                 maxWidth: 150,
                 maxHeight: 100,
@@ -150,6 +168,10 @@ $(function() {
             earth.panTo([farmers[index].location.lat, farmers[index].location.lon]);
         });
 
+        // Invert text color on mouseenter, mouseleave of entry.
+        $('.entry').on('mouseenter mouseleave', function() {
+            $(this).css('color', invertColor($(this).css('color')));
+        });
     }
 
 

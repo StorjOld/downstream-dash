@@ -166,6 +166,54 @@ body.open #side-menu ul .entry .color-effect{
 	color: #ddd;
 }
 
+
+/* Button */
+
+.btn {
+    display: block;
+    padding: 20px 0;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+    position: absolute;
+    bottom: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 3px solid #107fc9;	
+    -webkit-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+	transition: all 0.4s;
+}
+
+.btn:after {
+	content: '';
+	position: absolute;
+	z-index: -1;
+	width: 0%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: #107fc9;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.btn:hover,
+.btn:active {
+	color: #fff;
+}
+
+.btn:hover:after,
+.btn:active:after {
+	width: 100%;
+}
+
+.btn span {
+	position: absolute;
+	left: 25px;
+}
+
 /*---------------------------
 	Side menu toggle button
 ----------------------------*/

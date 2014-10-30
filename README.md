@@ -2,7 +2,7 @@
 
 This is a public dashboard that shows farmers that have interacted/are interacting with a DriveShare downstream verification node. 
 
-![dashboard](https://cloud.githubusercontent.com/assets/3324637/4786412/ffd3280a-5d93-11e4-9ee5-17b77a030abd.png)
+![Downstream Farmer Dashboard](https://cloud.githubusercontent.com/assets/3324637/4845681/5e712c18-6046-11e4-9632-b1f9acda9add.png)
 
 ## Can I see it live?
 Yes! Simply visit [verify.driveshare.org](http://verify.driveshare.org). Your browser will need to support WebGL.

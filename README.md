@@ -11,7 +11,7 @@ Yes! Simply visit [verify.driveshare.org](http://verify.driveshare.org). Your br
 
 ### Sidebar
 
-At the top of the sidebar, we indicate the number of farmers that have ever connected with this verification node (with uptime > 0%) and the number of countries they were collectively from. Underneath, we list the top ten ranked farmers by uptime. Each farmer is listed by SJCX address and uptime percentage. Offline farmers are translucent. The color 'trim' next to each farmer's listing corresponds to the country it is from. You can click on a farmer's listing and the globe will rotate to focus on it.
+At the top of the sidebar, we indicate the number of farmers that have ever connected with this verification node (with uptime > 0%) and the number of countries they were collectively from. Underneath, we list the top ten ranked farmers by uptime. Each farmer is listed by SJCX address and uptime percentage. Offline farmers are translucent. The color 'trim' next to each farmer's listing is unique to each farmer id. You can click on a farmer's listing and the globe will rotate to focus on it.
 
 ### Globe
 

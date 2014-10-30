@@ -98,11 +98,7 @@ $(function() {
             }
 
             // Summary information
-<<<<<<< HEAD
             $('.summary').html(farmers.length + ' farmers <span>/</span> ' + Object.keys(countries).length + ' countries');
-=======
-            $('.summary').html(farmers.length + ' farmers <span>in</span> ' + Object.keys(countryLegend).length + ' countries');
->>>>>>> 9e64a1cc8a47838f4a877414976b82c2d7f492ec
         }
 
 

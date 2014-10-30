@@ -131,8 +131,8 @@ $(function() {
                 closeButton: true
             }));
 
-            // Color the markers depending on the country they are in.
-            $(markers[markers.length - 1].element.firstChild).css('background', countryLegend[a.location.country]);
+            // Color the markers.
+            $(markers[markers.length - 1].element.firstChild).css('background', a.color);
         });
 
 

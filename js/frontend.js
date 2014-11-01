@@ -62,23 +62,21 @@ $(function() {
         return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
     }
 
-    // Returns the color inverse of a hex-encoded color.
+    // Returns white or black class depending on which 
+    // color contrasts more with submitted color.
     var invertColor = function(color) {
+        // If color is hex-formatted, convert to RGB
         if (color.indexOf('#') !== -1) {
-            var hexValue = hexColor.slice(1);
-            var reqHex = '';
-            for (var i = 0; i < 6; i++) {
-                reqHex = reqHex + (15 - parseInt(hexValue[i], 16)).toString(16);
-            }
-            return reqHex;
-        } else {
-            var colorsOnly = color.substring(color.indexOf('(') + 1, color.lastIndexOf(')')).split(/,\s*/);
-            var newRed = 255 - colorsOnly[0];
-            var newGreen = 255 - colorsOnly[1];
-            var newBlue = 255 - colorsOnly[2];
-            return 'rgb(' + newRed + ',' + newGreen + ',' + newBlue + ')';
+            var rgbArray = [hexToR(color), hexToG(color), hexToB(color)];
+        }  else {
+            var rgbArray = color.replace('rgb(','').replace(')','').split(',');
         }
-        
+
+        // Calculate luminance.
+        var L = (299 * rgbArray[0] + 587 * rgbArray[1] + 114 * rgbArray[2]) / 1000;
+
+        // Return black or white, depending on luminance.
+        return L > 130 ? 'highlightBlack' : 'highlightWhite';
     }
 
     // Maps all farmers to a random color and generates
@@ -109,7 +107,7 @@ $(function() {
             // On every call clear the side-menu list and globe markers and fill them up with new info.
             currentInfo.empty();
             $('#no-members').hide();
-            for (var i = 0; i < Math.min(9, farmers.length); i++) {
+            for (var i = 0; i < Math.min(10, farmers.length); i++) {
                 // Populate the side-menu with the farmers, ranked by uptime.
                 currentInfo.append($('<li id="farmer' + (i + 1) + '" class="entry ' + (!farmers[i].online ? "offline" : "") + '"></li>'));
                 entry = $('#farmer' + (i + 1));
@@ -170,11 +168,11 @@ $(function() {
 
         // Invert text color on mouseenter, mouseleave of entry.
         $('.entry').on('mouseenter', function() {
-            $(this).css('color', invertColor($(this).children('span.color-effect').css('background-color')));
+            $(this).addClass(invertColor($(this).children('span.color-effect').css('background-color')));
         });
 
         $('.entry').on('mouseleave', function() {
-            $(this).css('color', '#fff');
+             $(this).removeClass(invertColor($(this).children('span.color-effect').css('background-color')));
         });
     }
 

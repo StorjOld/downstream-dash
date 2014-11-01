@@ -94,7 +94,15 @@ html, body{
 }
 
 .entry.offline {
-	opacity: 0.5;
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.entry.highlightWhite {
+	color: rgb(255, 255, 255);
+}
+
+.entry.highlightBlack {
+	color: rgb(0, 0, 0);
 }
 
 .farmerId, .count{

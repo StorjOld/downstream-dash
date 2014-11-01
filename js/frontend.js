@@ -57,9 +57,10 @@ $(function() {
     getData();
     setInterval(getData, 5000);
 
-    // This function returns a random hex color.
-    var randomColor = function() {
-        return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
+    // This function returns a random color. If node is offline, it will return
+    // a random color with 50% opacity.
+    var randomColor = function(isOnline) {
+        return 'rgba(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ', ' + (isOnline ? 1 : 0.25) + ')';
     }
 
     // Returns white or black class depending on which 
@@ -84,7 +85,7 @@ $(function() {
     var generateLegend = function(farmers) {
         for (var j = 0; j < farmers.length; j++) {
             if (!(farmers[j].id in colorLegend)) {
-                colorLegend[farmers[j].id] = randomColor();
+                colorLegend[farmers[j].id] = randomColor(farmers[j].online);
             }
             countries[farmers[j].location.country] = true;
         }

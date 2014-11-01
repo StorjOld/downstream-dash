@@ -109,7 +109,7 @@ $(function() {
             // On every call clear the side-menu list and globe markers and fill them up with new info.
             currentInfo.empty();
             $('#no-members').hide();
-            for (var i = 0; i < Math.min(10, farmers.length); i++) {
+            for (var i = 0; i < Math.min(9, farmers.length); i++) {
                 // Populate the side-menu with the farmers, ranked by uptime.
                 currentInfo.append($('<li id="farmer' + (i + 1) + '" class="entry ' + (!farmers[i].online ? "offline" : "") + '"></li>'));
                 entry = $('#farmer' + (i + 1));

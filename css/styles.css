@@ -76,9 +76,24 @@ html, body{
 	margin: 25px auto 10px;
 }
 
+/* Entries List and Organization */
+#side-menu ul { 
+	overflow-y: auto;
+	overflow-x: hidden;
+	position: absolute;
+	width: 100%;
+	height: calc(100% - 249px); 
+}
+
+div.sidebar-header {
+	height: 160px;
+}
+
+a.sidebar-footer {
+	height: 60px;
+}
+
 /* Entries */
-
-
 .entry{
 	font-family: "Questrial", sans-serif;
 	font-weight: 400;

@@ -11,11 +11,11 @@ Yes! Simply visit [verify.driveshare.org](http://verify.driveshare.org). Your br
 
 ### Sidebar
 
-At the top of the sidebar, we indicate the number of farmers that have ever connected with this verification node (with uptime > 0%) and the number of countries they were collectively from. Underneath, we list the top ten ranked farmers by uptime. Each farmer is listed by SJCX address and uptime percentage. Offline farmers are translucent. The color 'trim' next to each farmer's listing is unique to each farmer id. You can click on a farmer's listing and the globe will rotate to focus on it.
+At the top of the sidebar, we indicate the number of farmers that have ever connected with this verification node (with uptime > 0%) and the number of countries they were collectively from. Underneath, we list all farmers by uptime in a scrollable list. Each farmer is listed by SJCX address and uptime percentage. Offline farmers are translucent. The color 'trim' next to each farmer's listing is unique to each farmer id. You can click on a farmer's listing and the globe will rotate to focus on it.
 
 ### Globe
 
-The globe shows the *very* approximate locations (determined by IP address) of all farmers that have ever connected to the node. You can click on a farmer's "pin" to see more information about their performance, including number of heartbeats passed, number of contracts, additional location information and the size of the test files used for their heartbeats.
+The globe shows the *very* approximate locations (determined by IP address) of all farmers that have ever connected to the node. You can click on a farmer's "pin" to see more information about their performance, including number of heartbeats passed, number of contracts, additional location information and the size of the test files used for their heartbeats. Offline farmers have translucent pins. Online farmers that successfully pass a "heartbeat" will pulse.
 
 ## Where can I find more details?
 This dashboard relays information from a test node running [downstream-node](https://github.com/storj/downstream-node). Information is collected from test farmers running [downstream-farmer](https://github.com/storj/downstream-farmer). Presently, this is for internal development testing only, but you can find out more details on how to participate in formal testing [here](http://storj.io/earlyaccess.html).

@@ -342,24 +342,24 @@ body.open #side-menu{
 
 /* Markers */
 @-webkit-keyframes pulse {
-  0%   { -webkit-transform: scale(1) rotate(-45deg); brightness(1); }
-  50%  { -webkit-transform: scale(1.2) rotate(-45deg); brightness(2); }
-  100% { -webkit-transform: scale(1) rotate(-45deg); brightness(1); }
+  0%   { -webkit-transform: scale(1) rotate(-45deg);}
+  50%  { -webkit-transform: scale(1.2) rotate(-45deg);}
+  100% { -webkit-transform: scale(1) rotate(-45deg); }
 }
 @-moz-keyframes pulse {
-  0%   { -moz-transform: scale(1) rotate(-45deg); brightness(1);}
-  50%  { -moz-transform: scale(1.2) rotate(-45deg); brightness(2);}
-  100% { -moz-transform: scale(1) rotate(-45deg); brightness(1);}
+  0%   { -moz-transform: scale(1) rotate(-45deg);}
+  50%  { -moz-transform: scale(1.2) rotate(-45deg);}
+  100% { -moz-transform: scale(1) rotate(-45deg);}
 }
 @-o-keyframes pulse {
-  0%   { -o-transform: scale(1) rotate(-45deg); brightness(1);}
-  50%  { -o-transform: scale(1.2) rotate(-45deg); brightness(2);}
-  100% { -o-transform: scale(1) rotate(-45deg); brightness(1);}
+  0%   { -o-transform: scale(1) rotate(-45deg);}
+  50%  { -o-transform: scale(1.2) rotate(-45deg);}
+  100% { -o-transform: scale(1) rotate(-45deg);}
 }
 @keyframes pulse {
-  0%   { transform: scale(1) rotate(-45deg); brightness(1);}
-  50%  { transform: scale(1.2) rotate(-45deg); brightness(2);}
-  100% { transform: scale(1) rotate(-45deg); brightness(1);}
+  0%   { transform: scale(1) rotate(-45deg);}
+  50%  { transform: scale(1.2) rotate(-45deg);}
+  100% { transform: scale(1) rotate(-45deg);}
 }
 
 

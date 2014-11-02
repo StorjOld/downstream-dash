@@ -384,12 +384,17 @@ body.open #side-menu{
 
 .we-pm-icon:after{
 	content: '';
-	width: 14px;
-	height: 14px;
-	margin: 8px 0 0 8px;
-	background: #2f2f2f;
+	width: 23px;
+	height: 23px;
+	margin-left: 3px;
+	margin-top: 3px;
+	background-image: url('../img/storj_icon.png');
+	background-position: center center;
+	background-size: contain;
+	background-repeat: no-repeat;
 	position: absolute;
-	border-radius: 50%;
+	transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
 }
 
 .cesium-credit-text,

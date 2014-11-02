@@ -397,6 +397,10 @@ body.open #side-menu{
 	-webkit-transform: rotate(45deg);
 }
 
+.we-pm-icon.offline:after {
+	opacity: 0.25;
+}
+
 .cesium-credit-text,
 .cesium-credit-textContainer:before {
 	opacity: 0.15;

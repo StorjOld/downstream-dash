@@ -102,9 +102,6 @@ $(function() {
             // Update country list.
             countries[farmers[j].location.country] = true;
         }
-
-        // Beat test.
-        console.log(beatMe);
     }
 
     // This function handles everything related to updating the HTML

@@ -417,17 +417,19 @@ body.open #side-menu{
 }
 
 .we-pp-content{
-	background-color: #107fc9;
+	font-family: "Questrial", sans-serif !important;
 	color: #fff;
 }
 
 .we-pp-wrapper{
-	background: #107fc9 !important;
+	background-color: rgba(16, 127, 201, 0.85) !important;
 	border-radius: 3px !important;
+	box-shadow: none !important;
 }
 
 .we-pp-tip{
-	background: #107fc9 !important;
+	background: rgba(16, 127, 201, 0.85) !important;
+	box-shadow: none !important;
 }
 
 /*---------------------------

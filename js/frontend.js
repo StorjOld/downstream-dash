@@ -166,7 +166,9 @@ $(function() {
             }));
 
             // Color the markers.
-            $(markers[markers.length - 1].element.firstChild).css('background', farmerLegend[a.id].color);
+            $(markers[markers.length - 1].element.firstChild).css('background', farmerLegend[a.id].color).addClass(function() {
+                return beatMe.indexOf(a.id) > -1 ? 'beat' : '';
+            });
         });
 
 

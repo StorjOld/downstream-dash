@@ -3,7 +3,8 @@ $(function() {
     var farmers = [],
         markers = [],
         countries = {},
-        colorLegend = {},
+        farmerLegend = {},
+        beatMe = [],
         rotation;
 
     var currentInfo = $('#side-menu ul'),
@@ -81,12 +82,17 @@ $(function() {
     }
 
     // Maps all farmers to a random color and generates
-    // an object of countries.
+    // an object of countries. Also keeps track of 
+    // heartbeat count.
     var generateLegend = function(farmers) {
+        countries = {};
+
         for (var j = 0; j < farmers.length; j++) {
-            if (!(farmers[j].id in colorLegend)) {
-                colorLegend[farmers[j].id] = randomColor(farmers[j].online);
+            if (!(farmers[j].id in farmerLegend)) {
+                farmerLegend[farmers[j].id] = {color:randomColor(farmers[j].online), beats:farmers[j].heartbeats};
             }
+
+            // Update country list.
             countries[farmers[j].location.country] = true;
         }
     }
@@ -112,7 +118,7 @@ $(function() {
                 // Populate the side-menu with the farmers, ranked by uptime.
                 currentInfo.append($('<li id="farmer' + (i + 1) + '" class="entry ' + (!farmers[i].online ? "offline" : "") + '"></li>'));
                 entry = $('#farmer' + (i + 1));
-                entry.append($('<span class="color-effect"></span>').css('background-color', colorLegend[farmers[i].id]));
+                entry.append($('<span class="color-effect"></span>').css('background-color', farmerLegend[farmers[i].id].color));
                 entry.append($('<div class="farmerId">' + farmers[i].address + '</div>'));
                 entry.append($('<span class="count">' + Math.round(farmers[i].uptime) + '%</span>'));
 
@@ -153,7 +159,7 @@ $(function() {
             }));
 
             // Color the markers.
-            $(markers[markers.length - 1].element.firstChild).css('background', colorLegend[a.id]);
+            $(markers[markers.length - 1].element.firstChild).css('background', farmerLegend[a.id].color);
         });
 
 

@@ -86,15 +86,25 @@ $(function() {
     // heartbeat count.
     var generateLegend = function(farmers) {
         countries = {};
+        beatMe = [];
 
         for (var j = 0; j < farmers.length; j++) {
             if (!(farmers[j].id in farmerLegend)) {
                 farmerLegend[farmers[j].id] = {color:randomColor(farmers[j].online), beats:farmers[j].heartbeats};
             }
 
+            // Add farmer id to beatMe list if heartbeats have incremented.
+            if (farmers[j].heartbeats > farmerLegend[farmers[j].id].beats) {
+                beatMe.push(farmers[j].id);
+                farmerLegend[farmers[j].id].beats = farmers[j].heartbeats;
+            }
+
             // Update country list.
             countries[farmers[j].location.country] = true;
         }
+
+        // Beat test.
+        console.log(beatMe);
     }
 
     // This function handles everything related to updating the HTML

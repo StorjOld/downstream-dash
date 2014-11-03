@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var data = JSON.parse(xhr.responseText);
                 farmers = data.farmers.filter(function(farmer) {
-                    return farmer.uptime > 0;
+                    return Math.round(farmer.uptime) > 0;
                 });
                 generateLegend(farmers);
                 render();

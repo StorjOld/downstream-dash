@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 
     // This line adds support for MapQuest Aerial tiles
-    WE.tileLayer('https://otile{s}-s.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg', {
+    WE.tileLayer('https://otile2-s.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg', {
         attribution: 'Tiles Courtesy of MapQuest.'
     }).addTo(earth);
 

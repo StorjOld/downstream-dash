@@ -146,6 +146,8 @@ document.addEventListener('DOMContentLoaded', function(event) {
             currentInfo.innerHTML = null;
             document.getElementById('no-farmers').style.display = 'none';
 
+            var entriesContainer = document.createDocumentFragment();
+
             for (var i = 0; i < farmers.length; i++) {
                 // Populate the side-menu with the farmers, ranked by uptime.
                 var newEntry = document.createElement('li');
@@ -167,8 +169,10 @@ document.addEventListener('DOMContentLoaded', function(event) {
                 newCountSpan.innerHTML = Math.round(farmers[i].uptime) + '%';
                 newEntry.appendChild(newCountSpan)
 
-                currentInfo.appendChild(newEntry);
+                entriesContainer.appendChild(newEntry);
             }
+
+            currentInfo.appendChild(entriesContainer);
 
             // Summary information
             document.getElementsByClassName('summary')[0].innerHTML = farmers.length + ' farmers <span>/</span> ' + countries.length + ' countries';

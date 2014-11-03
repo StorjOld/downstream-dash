@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
             // Update country list.
             var country = farmers[j].location.country;
-            if (countries.indexOf(country === -1)) {
+            if (countries.indexOf(country) === -1) {
                 countries.push(country);
             }
         }

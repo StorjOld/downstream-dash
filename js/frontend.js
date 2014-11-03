@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
     var farmers = [],
         markers = [],
-        countries = {},
+        countries = [],
         farmerLegend = {},
         beatMe = [],
         rotation;
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     // an object of countries. Also keeps track of 
     // heartbeat count.
     var generateLegend = function(farmers) {
-        countries = {};
+        countries = [];
         beatMe = [];
 
         for (var j = 0; j < farmers.length; j++) {
@@ -58,7 +58,10 @@ document.addEventListener('DOMContentLoaded', function(event) {
             }
 
             // Update country list.
-            countries[farmers[j].location.country] = true;
+            var country = farmers[j].location.country;
+            if (countries.indexOf(country === -1)) {
+                countries.push(country);
+            }
         }
     }
 
@@ -168,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
             }
 
             // Summary information
-            document.getElementsByClassName('summary')[0].innerHTML = farmers.length + ' farmers <span>/</span> ' + Object.keys(countries).length + ' countries';
+            document.getElementsByClassName('summary')[0].innerHTML = farmers.length + ' farmers <span>/</span> ' + countries.length + ' countries';
         }
 
         // Adding the markers to the globe.

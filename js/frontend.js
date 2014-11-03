@@ -134,7 +134,6 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
             // If there isn't anybody online
             // Show an appropriate message and empty the summary and the list section
-            currentInfo.empty();
             currentInfo.innerHTML = null;
             document.getElementById('no-farmers').style.display = 'block';
             document.getElementsByClassName('.summary')[0].innerHTML = '';

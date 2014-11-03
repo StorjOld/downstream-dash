@@ -1,4 +1,4 @@
-$(function() {
+document.addEventListener('DOMContentLoaded', function(event) {
 
     var farmers = [],
         markers = [],
@@ -7,8 +7,8 @@ $(function() {
         beatMe = [],
         rotation;
 
-    var currentInfo = $('#side-menu ul'),
-        body = $('body');
+    var currentInfo = document.getElementsByTagName('ul')[0],
+        body = document.getElementsByTagName('body')[0];
 
     var earth = new WE.map('earth_div', {
         sky: true,
@@ -32,26 +32,71 @@ $(function() {
 
 
     // Opening and closing the side menu
-    $('#open-side-menu').on('click', function() {
-        body.toggleClass('open');
-    });
+    document.getElementById('open-side-menu').addEventListener('click', function() {
+        body.classList.toggle('open');
+    }, false);
 
+    // Maps all farmers to a random color and generates
+    // an object of countries. Also keeps track of 
+    // heartbeat count.
+    var generateLegend = function(farmers) {
+        countries = {};
+        beatMe = [];
+
+        for (var j = 0; j < farmers.length; j++) {
+            if (!(farmers[j].id in farmerLegend)) {
+                farmerLegend[farmers[j].id] = {
+                    color: randomColor(farmers[j].online),
+                    beats: farmers[j].heartbeats
+                };
+            }
+
+            // Add farmer id to beatMe list if heartbeats have incremented.
+            if (farmers[j].heartbeats > farmerLegend[farmers[j].id].beats) {
+                beatMe.push(farmers[j].id);
+                farmerLegend[farmers[j].id].beats = farmers[j].heartbeats;
+            }
+
+            // Update country list.
+            countries[farmers[j].location.country] = true;
+        }
+    }
 
     // This function sends an ajax get request to fetch
     // a list of farmers and coordinates, then renders 
     // the globe.
     var getData = function() {
-        $.ajax({
-            url: 'http://verify.driveshare.org/api/downstream/status/list/by/d/uptime',
-            success: function(data) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var data = JSON.parse(xhr.responseText);
                 farmers = data.farmers.filter(function(farmer) {
                     return farmer.uptime > 0;
                 });
                 generateLegend(farmers);
                 render();
             }
-        });
+
+        }
+        xhr.open('GET', 'http://verify.driveshare.org/api/downstream/status/list/by/d/uptime');
+        xhr.send();
     }
+
+    // Return window width.
+    function getWidth() {
+        if (self.innerHeight) {
+            return self.innerWidth;
+        }
+
+        if (document.documentElement && document.documentElement.clientHeight) {
+            return document.documentElement.clientWidth;
+        }
+
+        if (document.body) {
+            return document.body.clientWidth;
+        }
+    }
+
 
     // Fetch data for the globe once initially, 
     // and then every 5 seconds.
@@ -70,8 +115,8 @@ $(function() {
         // If color is hex-formatted, convert to RGB
         if (color.indexOf('#') !== -1) {
             var rgbArray = [hexToR(color), hexToG(color), hexToB(color)];
-        }  else {
-            var rgbArray = color.replace('rgb(','').replace(')','').split(',');
+        } else {
+            var rgbArray = color.replace('rgb(', '').replace(')', '').split(',');
         }
 
         // Calculate luminance.
@@ -79,29 +124,6 @@ $(function() {
 
         // Return black or white, depending on luminance.
         return L > 130 ? 'highlightBlack' : 'highlightWhite';
-    }
-
-    // Maps all farmers to a random color and generates
-    // an object of countries. Also keeps track of 
-    // heartbeat count.
-    var generateLegend = function(farmers) {
-        countries = {};
-        beatMe = [];
-
-        for (var j = 0; j < farmers.length; j++) {
-            if (!(farmers[j].id in farmerLegend)) {
-                farmerLegend[farmers[j].id] = {color:randomColor(farmers[j].online), beats:farmers[j].heartbeats};
-            }
-
-            // Add farmer id to beatMe list if heartbeats have incremented.
-            if (farmers[j].heartbeats > farmerLegend[farmers[j].id].beats) {
-                beatMe.push(farmers[j].id);
-                farmerLegend[farmers[j].id].beats = farmers[j].heartbeats;
-            }
-
-            // Update country list.
-            countries[farmers[j].location.country] = true;
-        }
     }
 
     // This function handles everything related to updating the HTML
@@ -113,33 +135,41 @@ $(function() {
             // If there isn't anybody online
             // Show an appropriate message and empty the summary and the list section
             currentInfo.empty();
-            $('#no-members').show();
-            $('.summary').html('');
-
+            document.getElementById('no-farmers').style.display = 'block';
+            document.getElementsByClassName('.summary')[0].innerHTML = '';
         } else {
             // If there are people online:
             // On every call clear the side-menu list and globe markers and fill them up with new info.
-            currentInfo.empty();
-            $('#no-members').hide();
+            currentInfo.innerHTML = null;
+            document.getElementById('no-farmers').style.display = 'none';
+
             for (var i = 0; i < farmers.length; i++) {
                 // Populate the side-menu with the farmers, ranked by uptime.
-                currentInfo.append($('<li id="farmer' + (i + 1) + '" class="entry ' + (!farmers[i].online ? "offline" : "") + '"></li>'));
-                entry = $('#farmer' + (i + 1));
-                entry.append($('<span class="color-effect"></span>').css('background-color', farmerLegend[farmers[i].id].color));
-                entry.append($('<div class="farmerId">' + farmers[i].address + '</div>'));
-                entry.append($('<span class="count">' + Math.round(farmers[i].uptime) + '%</span>'));
+                var newEntry = document.createElement('li');
+                newEntry.setAttribute('id', 'farmer' + (i + 1));
+                newEntry.className = 'entry ' + (!farmers[i].online ? 'offline' : '');
 
+                var newColorSpan = document.createElement('span');
+                newColorSpan.className = 'color-effect';
+                newColorSpan.style.backgroundColor = farmerLegend[farmers[i].id].color;
+                newEntry.appendChild(newColorSpan);
+
+                var newDiv = document.createElement('div');
+                newDiv.className = 'farmerId';
+                newDiv.innerHTML = farmers[i].address;
+                newEntry.appendChild(newDiv);
+
+                var newCountSpan = document.createElement('span');
+                newCountSpan.className = 'count';
+                newCountSpan.innerHTML = Math.round(farmers[i].uptime) + '%';
+                newEntry.appendChild(newCountSpan)
+
+                currentInfo.appendChild(newEntry);
             }
 
             // Summary information
-            $('.summary').html(farmers.length + ' farmers <span>/</span> ' + Object.keys(countries).length + ' countries');
+            document.getElementsByClassName('summary')[0].innerHTML = farmers.length + ' farmers <span>/</span> ' + Object.keys(countries).length + ' countries';
         }
-
-
-        // Calculate number of side-menu entries depending on screen size.
-        showEntries();
-        $(window).resize(showEntries);
-
 
         // Adding the markers to the globe.
         // First remove all existing markers from the globe and clear the array they are stored in.
@@ -166,64 +196,55 @@ $(function() {
             }));
 
             // Color the markers.
-            $(markers[markers.length - 1].element.firstChild).css('background', farmerLegend[a.id].color).addClass(function() {
-                return beatMe.indexOf(a.id) > -1 ? 'beat' : (!a.online ? 'offline' : '');
-            });
+            var currentMarker = markers[markers.length - 1].element.firstChild;
+            currentMarker.style.background = farmerLegend[a.id].color;
+            if (beatMe.indexOf(a.id) > -1) {
+                currentMarker.classList.add('beat');
+            } else if (!a.online) {
+                currentMarker.classList.add('offline');
+            }
         });
 
 
         // Rotate the globe to the desired farmer from the list
-        $('.entry').on('click', function() {
-            if ($(window).width() < 800) {
-                body.removeClass('open');
-            }
-            clearInterval(rotation);
-            var index = $(this).attr('id').split('farmer')[1] - 1;
-            earth.panTo([farmers[index].location.lat, farmers[index].location.lon]);
-        });
+        var entries = document.getElementsByClassName('entry');
 
-        // Invert text color on mouseenter, mouseleave of entry.
-        $('.entry').on('mouseenter', function() {
-            $(this).addClass(invertColor($(this).children('span.color-effect').css('background-color')));
-        });
+        for (var i = 0; i < entries.length; i++) {
+            entries[i].addEventListener('click', function() {
+                if (getWidth() < 800) {
+                    body.classList.remove('open');
+                }
+                clearInterval(rotation);
+                var index = this.getAttribute('id').split('farmer')[1] - 1;
+                earth.panTo([farmers[index].location.lat, farmers[index].location.lon]);
+            });
 
-        $('.entry').on('mouseleave', function() {
-             $(this).removeClass(invertColor($(this).children('span.color-effect').css('background-color')));
-        });
+            entries[i].addEventListener('mouseover', function() {
+                this.classList.add(invertColor(this.getElementsByClassName('color-effect')[0].style.backgroundColor));
+            });
+
+            entries[i].addEventListener('mouseout', function() {
+                this.classList.remove('highlightWhite');
+                this.classList.remove('highlightBlack');
+            });
+        }
     }
 
 
-    $('#earth_div').on('click touchstart touchend', function() {
-        // Stop the rotation when the earth is clicked or touched
-        clearInterval(rotation);
-
-        // If the screen is small close the side menu as well.
-        if ($(window).width() < 800) {
-            body.removeClass('open');
-        }
+    var earthDiv = document.getElementById('earth_div');
+    ['click', 'touchstart', 'touchend'].forEach(function(event) {
+        earthDiv.addEventListener(event, function() {
+            clearInterval(rotation);
+            if (getWidth() < 800) {
+                body.classList.remove('open');
+            }
+        });
     });
 
 
-    // Shows only a part of the entries depending on the screen size
-    var showEntries = function() {
-        var screenHeight = $(window).height(),
-            sideMenuEntriesSpace = screenHeight - 250, // Exclude the title and the summary height
-            numberOfEntries = Math.round(sideMenuEntriesSpace / 55); // 55 is the height of an entry in pixels
-
-        // The list of countries on the sidebar
-        var countries = $('#side-menu .entry');
-
-        // Hide all countries
-        countries.hide();
-
-        // Show only as many countries as would fit on the window
-        countries.slice(0, numberOfEntries).show();
-    }
-
-
     // Open the side menu on start up if the app is running on a big screen.
-    if ($(window).width() > 800) {
-        body.addClass('open');
+    if (getWidth() > 800) {
+        body.classList.add('open');
     } else {
         earth.setZoom(1.8);
     }

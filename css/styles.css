@@ -46,7 +46,7 @@ html, body{
 	background: rgba(0, 0, 0, 0.35);
 	position: fixed;
 	z-index: 2;
-	left: -315px;
+	left: -320px;
 	top: 0;
 	border-right: 1px solid rgba(255, 255, 255, 0.1);
 	width: 320px;

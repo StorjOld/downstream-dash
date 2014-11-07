@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
             }
 
         }
-        xhr.open('GET', 'https://verify.driveshare.org/api/downstream/status/list/by/d/uptime');
+        xhr.open('GET', 'https://live.driveshare.org/api/downstream/status/list/by/d/uptime');
         xhr.send();
     }
 

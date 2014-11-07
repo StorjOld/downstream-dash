@@ -418,6 +418,10 @@ body.open #side-menu{
 	font-family: "Muli", sans-serif;
 }
 
+#earth_div div:first-of-type {
+	right:0;
+}
+
 
 /* Pop Ups */
 

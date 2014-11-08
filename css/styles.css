@@ -425,25 +425,52 @@ body.open #side-menu{
 
 /* Pop Ups */
 
-.we-pp{
+.we-pp {
 	left: -95px !important;
 	bottom: 35px !important;
 }
 
-.we-pp-content{
+.we-pp-content {
 	font-family: "Questrial", sans-serif !important;
 	color: #fff;
 }
+.we-pp-content p {
+	margin: 0 !important;
+	line-height: 28px;
+	width: 100%;
+	padding: 0 15px;
+	font-family: "Montserrat", sans-serif;
+	color: #107fc9;
+	font-size: 10px;
+}
 
-.we-pp-wrapper{
-	background-color: rgba(16, 127, 201, 0.85) !important;
-	border-radius: 3px !important;
+.we-pp-wrapper {
+	border-radius: 0 !important;
 	box-shadow: none !important;
 }
 
-.we-pp-tip{
-	background: rgba(16, 127, 201, 0.85) !important;
+.we-pp-tip {
 	box-shadow: none !important;
+}
+
+.we-pp-close {
+	top: 18px;
+	right: 10px;
+}
+
+.popup-address {
+	background: #107fc9;
+	padding: 10px 0;
+}
+.popup-address p {
+	font-weight: 700;
+	color: #fff;
+	font-size: 10px;
+	padding: 0 15px;
+	letter-spacing: 0.5px;
+}
+.popup-info {
+	padding: 10px 0;
 }
 
 /*---------------------------

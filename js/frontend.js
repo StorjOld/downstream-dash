@@ -147,7 +147,8 @@ document.addEventListener('DOMContentLoaded', function(event) {
             // Show an appropriate message and empty the summary and the list section
             currentInfo.innerHTML = null;
             document.getElementById('no-farmers').style.display = 'block';
-            document.getElementsByClassName('.summary')[0].innerHTML = '';
+            var summary = document.getElementsByClassName('.summary')[0];
+            if (summary) summary.innerHTML = '';
         } else {
             // If there are people online:
             // On every call clear the side-menu list and globe markers and fill them up with new info.

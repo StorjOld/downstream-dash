@@ -75,15 +75,8 @@ document.addEventListener('DOMContentLoaded', function(event) {
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var data = JSON.parse(xhr.responseText);
-                var last_due, now;
                 farmers = data.farmers.filter(function(farmer) {
-                    if (farmer.last_due) {
-                        last_due = new Date(farmer.last_due);
-                        now = new Date();
-                        return Math.abs(now - last_due) < ageThreshold;
-                    } else {
-                        return false;
-                    }
+                    return Math.abs(new Date() - new Date(farmer.last_due)) < ageThreshold;
                 });
                 generateLegend(farmers);
                 render();

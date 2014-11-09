@@ -433,6 +433,7 @@ body.open #side-menu{
 .we-pp-content {
 	font-family: "Questrial", sans-serif !important;
 	color: #fff;
+	margin: 0 !important;
 }
 .we-pp-content p {
 	margin: 0 !important;
@@ -447,6 +448,7 @@ body.open #side-menu{
 .we-pp-wrapper {
 	border-radius: 0 !important;
 	box-shadow: none !important;
+	padding: 0 !important;
 }
 
 .we-pp-tip {
@@ -454,8 +456,8 @@ body.open #side-menu{
 }
 
 .we-pp-close {
-	top: 18px;
-	right: 10px;
+	top: 19px !important;
+	right: 10px !important;
 }
 
 .popup-address {

@@ -457,8 +457,34 @@ body.open #side-menu{
 }
 
 .we-pp-close {
-	top: 19px !important;
-	right: 10px !important;
+	background-image: none !important;
+	top: 22px !important;
+	right: 20px !important;
+	width: 17px;
+	height: 2px;
+	position: relative;
+}
+.we-pp-close:before {
+	content: '';
+	position: absolute;
+	background-color: #003366;
+	width: 15px;
+	height: 3px;
+	top: 0;
+	left: 1px;
+	transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+}
+.we-pp-close:after {
+	content: '';
+	position: absolute;
+	background-color: #003366;
+	width: 15px;
+	height: 3px;
+	top: 0;
+	left: 1px;
+	transform: rotate(-45deg);
+	-webkit-transform: rotate(-45deg);
 }
 
 .popup-address {

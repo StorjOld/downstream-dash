@@ -434,6 +434,7 @@ body.open #side-menu{
 	font-family: "Questrial", sans-serif !important;
 	color: #fff;
 	margin: 0 !important;
+	width: 100%;
 }
 .we-pp-content p {
 	margin: 0 !important;

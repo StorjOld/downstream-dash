@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
         countries = [],
         farmerLegend = {},
         beatMe = [],
-        ageThreshold = 10800,
+        ageThreshold = 10800000,
         rotation;
 
     var currentInfo = document.getElementsByTagName('ul')[0],
@@ -81,8 +81,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
                         last_due = new Date(farmer.last_due);
                         now = new Date();
                         return Math.abs(now - last_due) < ageThreshold;
+                    } else {
+                        return false;
                     }
-                    return false;
                 });
                 generateLegend(farmers);
                 render();

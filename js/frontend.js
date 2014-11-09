@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
         countries = [],
         farmerLegend = {},
         beatMe = [],
+        ageThreshold = 10800,
         rotation;
 
     var currentInfo = document.getElementsByTagName('ul')[0],
@@ -74,8 +75,14 @@ document.addEventListener('DOMContentLoaded', function(event) {
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var data = JSON.parse(xhr.responseText);
+                var last_due, now;
                 farmers = data.farmers.filter(function(farmer) {
-                    return Math.round(farmer.uptime) > 0;
+                    if (farmer.last_due) {
+                        last_due = new Date(farmer.last_due);
+                        now = new Date();
+                        return Math.abs(now - last_due) < ageThreshold;
+                    }
+                    return false;
                 });
                 generateLegend(farmers);
                 render();

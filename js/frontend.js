@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
             var firstBits = a.address.slice(0, 4);
             var address = a.address;
 
-            markers.push(WE.marker([a.location.lat, a.location.lon]).addTo(earth).bindPopup('<div class="popup-address"><p>' + address + '</p></div><div class="popup-info"><p>' + (city ? city : country) + (state ? ', ' + state : '') + '</p><p>' + numContracts + ' contract(s)</p><p>' + heartbeats + ' heartbeats</p><p>' + testFileSize + '-byte test files.</p></div>', {
+            markers.push(WE.marker([a.location.lat, a.location.lon]).addTo(earth).bindPopup('<div class="popup-address"><p>' + address + '</p></div><div class="popup-info"><p>' + (city ? city : country) + (state ? ', ' + state : '') + '</p><p>' + numContracts + ' contract(s)</p><p>' + heartbeats + ' heartbeats</p><p>' + testFileSize + ' total test bytes.</p></div>', {
                 maxWidth: 250,
                 maxHeight: 200,
                 closeButton: true

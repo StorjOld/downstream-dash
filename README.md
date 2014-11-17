@@ -5,7 +5,7 @@ This is a public dashboard that shows farmers that have interacted/are interacti
 ![DriveShare Live](https://cloud.githubusercontent.com/assets/3324637/4874065/f791beb4-6238-11e4-867d-e95bb479b958.png)
 
 ## Can I see it live?
-Yes! Simply visit [verify.driveshare.org](http://verify.driveshare.org). Your browser will need to support WebGL.
+Yes! Simply visit [live.driveshare.org](https://live.driveshare.org). Your browser will need to support WebGL.
 
 ## What does this all mean?
 

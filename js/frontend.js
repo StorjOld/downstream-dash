@@ -227,6 +227,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
                 clearInterval(rotation);
                 var index = this.getAttribute('id').split('farmer')[1] - 1;
                 earth.panTo([farmers[index].location.lat, farmers[index].location.lon]);
+                markers[index].openPopup();
             });
 
             entries[i].addEventListener('mouseover', function() {

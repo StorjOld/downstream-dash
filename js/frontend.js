@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
             var locationString;
 
             if (country === 'United States') {
-                locationString = (city ? city + ', ' + state : '') + ', United States';
+                locationString = (city ? city + ', ' + state + ', ' : '') + 'United States';
             } else {
                 locationString = (city ? city + ', ' + country : country);
             }

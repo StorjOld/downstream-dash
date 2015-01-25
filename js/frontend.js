@@ -198,8 +198,15 @@ document.addEventListener('DOMContentLoaded', function(event) {
             var heartbeats = a.heartbeats;
             var testFileSize = a.size;
             var address = a.address;
+            var locationString;
 
-            markers.push(WE.marker([a.location.lat, a.location.lon]).addTo(earth).bindPopup('<div class="popup-address"><p>' + address + '</p></div><div class="popup-info"><p>' + (city ? city : country) + (state ? ', ' + state : '') + '</p><p>' + numContracts + ' contract(s)</p><p>' + heartbeats + ' heartbeats</p><p>' + testFileSize + ' total test bytes.</p></div>', {
+            if (country === 'United States') {
+                locationString = (city ? city + ', ' + state : '') + ', United States';
+            } else {
+                locationString = (city ? city + ', ' + country : country);
+            }
+
+            markers.push(WE.marker([a.location.lat, a.location.lon]).addTo(earth).bindPopup('<div class="popup-address"><p>' + address + '</p></div><div class="popup-info"><p>' + locationString + '</p><p>' + numContracts + ' contract(s)</p><p>' + heartbeats + ' heartbeats</p><p>' + testFileSize + ' total test bytes.</p></div>', {
                 maxWidth: 250,
                 maxHeight: 200,
                 closeButton: true
